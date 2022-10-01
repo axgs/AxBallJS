@@ -30,6 +30,14 @@ const level = {
         let ym = Math.floor((y - 8) / this.brickHeight);
         if (xm < 0 || ym < 0 || xm > this.width || ym > this.height) return -1;
         return this.tileMap[xm + (ym * this.width)];
+    },
+
+    setBrickId: function(id, x, y) {
+        let xm = Math.floor((x - 8) / this.brickWidth);
+        let ym = Math.floor((y - 8) / this.brickHeight);
+        if (xm >= 0 || ym >= 0 || xm <= this.width || ym <= this.height) {
+            this.tileMap[xm + (ym * this.width)] = id;
+        }
     }
 };
 

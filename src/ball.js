@@ -33,14 +33,27 @@ class Ball {
             this.y += this.speedY;
 
             // check brick collision
+            let hit = false;
+
             if (this.speedY < 0 && level.getBrickId(this.x + 4, this.y - 1) > 0) {
                 this.speedY = Math.abs(this.speedY);
+                level.setBrickId(0, this.x + 4, this.y - 1);
+                hit = true;
             } else if (this.speedY > 0 && level.getBrickId(this.x + 4, this.y + this.height + 1) > 0) {
                 this.speedY = -Math.abs(this.speedY);
+                level.setBrickId(0, this.x + 4, this.y + this.height + 1);
+                hit = true;
             } else if (this.speedX < 0 && level.getBrickId(this.x - 1, this.y + 2) > 0) {
                 this.speedX = Math.abs(this.speedX);
+                level.setBrickId(0, this.x - 1, this.y + 2);
+                hit = true;
             } else if (this.speedX > 0 && level.getBrickId(this.x + this.width + 1, this.y + 2) > 0) {
                 this.speedX = -Math.abs(this.speedX);
+                level.setBrickId(0, this.x + this.width + 1, this.y + 2);
+                hit = true;
+            }
+
+            if (hit) {
             }
 
             // border & player collision

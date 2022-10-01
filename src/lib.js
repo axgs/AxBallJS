@@ -1,6 +1,6 @@
 const lib = {
     ctx: null,                      // canvas drawing context
-    gfx: null,                      // spritesheet with all game graphics
+    gfx: null,                      // sprite-sheet with all game graphics
     width: 320,                     // game resolution
     height: 200,
 

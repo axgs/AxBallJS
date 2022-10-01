@@ -16,9 +16,11 @@ class Ball {
 
     update(player) {
         if (this.isOnPaddle) {
+            // ball is attached to player
             this.x = player.x + ((player.width - this.width) / 2);
             this.y = player.y - this.height;
 
+            // ball release from player?
             if (lib.keyFire) {
                 this.isOnPaddle = false;
                 this.speedX = -1;
@@ -26,6 +28,7 @@ class Ball {
             }
         }
         else {
+            // ball movement
             this.x += this.speedX;
             this.y += this.speedY;
 
@@ -40,6 +43,7 @@ class Ball {
                 this.speedX = -Math.abs(this.speedX);
             }
 
+            // border & player collision
             if (this.speedX < 0 && this.x <= 8) {
                 this.speedX = Math.abs(this.speedX);
             } else if (this.speedX > 0 && this.x >= 216 - this.width) {

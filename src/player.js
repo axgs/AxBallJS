@@ -21,7 +21,7 @@ const player = {
             if (this.x <= 8) this.x = 8;
         } else if (lib.keyRight) {
             this.x += this.speed;
-            if (this.x >= 256 - this.width) this.x = 256 - this.width;
+            if (this.x >= 216 - this.width) this.x = 216 - this.width;
         }
     }
 };

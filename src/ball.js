@@ -30,7 +30,7 @@ class Ball {
 
             if (this.speedX < 0 && this.x <= 8) {
                 this.speedX = Math.abs(this.speedX);
-            } else if (this.speedX > 0 && this.x >= 256 - this.width) {
+            } else if (this.speedX > 0 && this.x >= 216 - this.width) {
                 this.speedX = -Math.abs(this.speedX);
             } else if (this.speedY < 0 && this.y <= 8) {
                 this.speedY = Math.abs(this.speedY);

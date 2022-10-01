@@ -9,13 +9,13 @@ const player = {
     sourceY: 72,
     speed: 0,
 
-    init: function(game) {
+    init(game) {
         this.x = (lib.width - this.width) / 2;
         this.y = lib.height - this.height * 2;
         this.speed = 2;
     },
 
-    update: function(game) {
+    update(game) {
         if (lib.keyLeft) {
             this.x -= this.speed;
             if (this.x <= 8) this.x = 8;

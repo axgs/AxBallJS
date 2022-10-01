@@ -35,7 +35,7 @@ class Ball {
             } else if (this.speedY < 0 && this.y <= 8) {
                 this.speedY = Math.abs(this.speedY);
             } else if (this.speedY > 0 && this.y > lib.height) {
-                this.ballOut();
+                this.lost();
             } else if (this.speedY > 0 && lib.collide(player, this)) {
                 this.playerCollision(player);
             }
@@ -49,7 +49,7 @@ class Ball {
         if (difX < 0) this.speedX = -Math.abs(this.speedX);
     }
 
-    ballOut() {
+    lost() {
         this.isOnPaddle = true;
     }
 

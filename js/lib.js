@@ -8,7 +8,7 @@ const lib = {
     keyRight: false,
     keyFire: false,
 
-    init: (width, height, gfxImgId) => {
+    init(width, height, gfxImgId) {
         const canvas = document.createElement('canvas');
         canvas.id = 'gameCanvas';
         canvas.width = width;
@@ -16,40 +16,41 @@ const lib = {
         document.body.appendChild(canvas);
 
         const element = document.getElementById('gameCanvas');
-        lib.ctx = element.getContext("2d");
+        this.ctx = element.getContext("2d");
 
-        lib.gfx = document.getElementById(gfxImgId);
+        this.gfx = document.getElementById(gfxImgId);
     },
 
-    drawSubImageRect: (x, y, width, height, sourceX, sourceY) => {
-        lib.ctx.drawImage(lib.gfx, sourceX, sourceY, width, height, Math.floor(x), Math.floor(y), width, height);
+    drawSubImageRect(x, y, width, height, sourceX, sourceY) {
+        this.ctx.drawImage(lib.gfx, sourceX, sourceY, width, height,
+                           Math.floor(x), Math.floor(y), width, height);
     },
 
-    cls: (hexColor) => {
-        lib.ctx.fillStyle = '#' + hexColor;
-        lib.ctx.fillRect(0, 0, lib.width, lib.height);
+    cls(hexColor) {
+        this.ctx.fillStyle = '#' + hexColor;
+        this.ctx.fillRect(0, 0, this.width, this.height);
     },
 
-    collide: (obj1, obj2) => {
+    collide(obj1, obj2) {
         return (obj1.x + obj1.width >= obj2.x &&
             obj1.y + obj1.height >= obj2.y &&
             obj1.x <= obj2.x + obj2.width &&
             obj1.y <= obj2.y + obj2.height);
     },
 
-    addKeyEvents: () => {
+    addKeyEvents() {
         document.addEventListener("keydown", (event) => {
             switch(event.code) {
                 case 'ArrowLeft':
-                    lib.keyLeft = true;
+                    this.keyLeft = true;
                     break;
 
                 case 'ArrowRight':
-                    lib.keyRight = true;
+                    this.keyRight = true;
                     break;
 
                 case 'Space':
-                    lib.keyFire = true;
+                    this.keyFire = true;
                     break;
             }
         }, false);
@@ -57,15 +58,15 @@ const lib = {
         document.addEventListener("keyup", (event) => {
             switch(event.code) {
                 case 'ArrowLeft':
-                    lib.keyLeft = false;
+                    this.keyLeft = false;
                     break;
 
                 case 'ArrowRight':
-                    lib.keyRight = false;
+                    this.keyRight = false;
                     break;
 
                 case 'Space':
-                    lib.keyFire = false;
+                    this.keyFire = false;
                     break;
             }
         }, false);

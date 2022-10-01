@@ -35,6 +35,7 @@ class Ball {
             // check brick collision
             let hit = false;
 
+            // simple tile based collision on one point in each direction
             if (this.speedY < 0 && level.getBrickId(this.x + 4, this.y - 1) > 0) {
                 this.speedY = Math.abs(this.speedY);
                 level.setBrickId(0, this.x + 4, this.y - 1);
@@ -53,6 +54,7 @@ class Ball {
                 hit = true;
             }
 
+            // todo: play some hit sound
             if (hit) {
             }
 

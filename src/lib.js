@@ -9,7 +9,7 @@ const lib = {
     keyFire: false,
 
     init(width, height, gfxImgId) {
-        const canvas = document.createElement('canvas');
+        let canvas = document.createElement('canvas');
         canvas.id = 'gameCanvas';
         canvas.width = width;
         canvas.height = height;
@@ -19,6 +19,13 @@ const lib = {
         this.ctx = element.getContext("2d");
 
         this.gfx = document.getElementById(gfxImgId);
+        this.addKeyEvents();
+    },
+
+    startGame() {
+        this.updateFunction();
+        this.renderFunction();
+        window.requestAnimationFrame(this.startGame);
     },
 
     drawSubImageRect(x, y, width, height, sourceX, sourceY) {

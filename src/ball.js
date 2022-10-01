@@ -13,7 +13,7 @@ class Ball {
         this.isOnPaddle = true;
     }
 
-    update(player, game) {
+    update(player) {
         if (this.isOnPaddle) {
             this.x = player.x + ((player.width - this.width) / 2);
             this.y = player.y - this.height-1;

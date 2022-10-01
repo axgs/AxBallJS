@@ -30,9 +30,9 @@ function renderGame() {
     lib.drawSubImageRect(game.ball.x, game.ball.y,game.ball.width, game.ball.height, game.ball.sourceX, game.ball.sourceY);
 }
 
-function updateGame() { 
-    player.update(game);
-    game.ball.update(player, game);
+function updateGame() {
+    player.update();
+    game.ball.update(player);
 }
 
 gameInit();

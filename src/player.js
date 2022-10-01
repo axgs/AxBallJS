@@ -15,7 +15,7 @@ const player = {
         this.speed = 2;
     },
 
-    update(game) {
+    update() {
         if (lib.keyLeft) {
             this.x -= this.speed;
             if (this.x <= 8) this.x = 8;

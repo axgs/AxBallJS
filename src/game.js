@@ -14,7 +14,7 @@ function gameInit() {
     lib.addKeyEvents();
 
     game.ball = new Ball();
-    player.init(game);
+    player.init();
     window.requestAnimationFrame(gameLoop);
 }
 

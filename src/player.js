@@ -9,7 +9,7 @@ const player = {
     sourceY: 72,
     speed: 0,
 
-    init(game) {
+    init() {
         this.x = (lib.width - this.width) / 2;
         this.y = lib.height - this.height * 2;
         this.speed = 2;

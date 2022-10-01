@@ -1,6 +1,7 @@
-import Ball from "./ball";
-import player from "./player";
-import lib from "./lib";
+import Ball from './ball';
+import player from './player';
+import lib from './lib';
+import { levelData } from './level/levelData';
 
 let game = {
     level: 0,
@@ -8,15 +9,20 @@ let game = {
     balls: 0,
     ball: null,
     brickWidth: 16,
-    brickHeight: 8
+    brickHeight: 8,
+    levelTileMap:[],
+    levelWidth: 13,
+    levelHeight: 21,
 };
 
 function gameInit() {
     lib.init(320, 200, 'gameGfx');
     lib.addKeyEvents();
 
+    game.levelTileMap = [...levelData[game.level]];
     game.ball = new Ball();
     player.init();
+
     window.requestAnimationFrame(gameLoop);
 }
 
@@ -46,13 +52,16 @@ function drawLevel() {
     const xOffset = 8;
     const yOffset = 8;
 
-    for(let y = 0; y < 21; y++) {
-        for(let x = 0; x < 13; x++) {
-            let sourceX = 16;
-            let sourceY = 0;
-            lib.drawSubImageRect(xOffset + x * game.brickWidth, yOffset + y * game.brickHeight,
-                                 game.brickWidth, game.brickHeight,
-                                 sourceX, sourceY);
+    for(let y = 0; y < game.levelHeight; y++) {
+        for(let x = 0; x < game.levelWidth; x++) {
+            let tileId = game.levelTileMap[x + (y * game.levelWidth)];
+            if (tileId > 0) {
+                let sourceX = (tileId -1) * 16;
+                let sourceY = 0;
+                lib.drawSubImageRect(xOffset + x * game.brickWidth, yOffset + y * game.brickHeight,
+                    game.brickWidth, game.brickHeight,
+                    sourceX, sourceY);
+            }
         }
     }
 }

@@ -82,6 +82,9 @@ class Ball {
         let difX = (this.x + this.width / 2) - (player.x + player.width / 2);
         this.dirX = 1;
         if (difX < 0) this.dirX = -1;
+        this.speedX = Math.abs(difX / 8);
+        if (this.speedX < 0.1) this.speedX = 0.1;
+        if (this.speedX > 5) this.speedX = 5;
     }
 
     lost() {

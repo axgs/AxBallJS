@@ -1,6 +1,9 @@
 Classic 2D breakout game in vanilla javascript, early development stage.
 GFX style like on the good old c64 homecomputer. Pixelratio 2:1. This is a little sparetime project.
 <br><br>
+game native resolution is: 320 x 200 pixel <br>
+it will be stretched two times (640 x 400 pixel) <br>
+<br>
 I use parcel to bundle the files and to run a local webserver during development
 (NodeJS installation is required).
 <br>

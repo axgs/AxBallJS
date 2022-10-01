@@ -1,4 +1,5 @@
 import lib from './lib';
+import level from './level';
 
 class Ball {
     constructor() {
@@ -6,8 +7,8 @@ class Ball {
         this.y = 0;
         this.sourceX = 32;
         this.sourceY = 72;
-        this.width = 8;
-        this.height = 5;
+        this.width = 6;
+        this.height = 4;
         this.speedX = 0;
         this.speedY = 0;
         this.isOnPaddle = true;
@@ -16,7 +17,7 @@ class Ball {
     update(player) {
         if (this.isOnPaddle) {
             this.x = player.x + ((player.width - this.width) / 2);
-            this.y = player.y - this.height-1;
+            this.y = player.y - this.height;
 
             if (lib.keyFire) {
                 this.isOnPaddle = false;
@@ -27,6 +28,17 @@ class Ball {
         else {
             this.x += this.speedX;
             this.y += this.speedY;
+
+            // check brick collision
+            if (this.speedY < 0 && level.getBrickId(this.x + 4, this.y - 1) > 0) {
+                this.speedY = Math.abs(this.speedY);
+            } else if (this.speedY > 0 && level.getBrickId(this.x + 4, this.y + this.height + 1) > 0) {
+                this.speedY = -Math.abs(this.speedY);
+            } else if (this.speedX < 0 && level.getBrickId(this.x - 1, this.y + 2) > 0) {
+                this.speedX = Math.abs(this.speedX);
+            } else if (this.speedX > 0 && level.getBrickId(this.x + this.width + 1, this.y + 2) > 0) {
+                this.speedX = -Math.abs(this.speedX);
+            }
 
             if (this.speedX < 0 && this.x <= 8) {
                 this.speedX = Math.abs(this.speedX);

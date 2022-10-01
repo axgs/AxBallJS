@@ -1,4 +1,5 @@
 import lib from './lib';
+import level from './level';
 
 const player = {
     x: 0,

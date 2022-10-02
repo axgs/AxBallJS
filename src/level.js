@@ -6,7 +6,8 @@ const level = {
     brickWidth: 16,
     brickHeight: 8,
     tileMap:[],
-
+    bgTile: 0,
+    
     drawBrickShadows: function(game) {
         const xOffset = game.playfieldOffsetX + game.shadowOffsetX;
         const yOffset = game.playfieldOffsetY + game.shadowOffsetY;

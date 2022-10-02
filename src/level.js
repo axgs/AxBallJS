@@ -1,4 +1,4 @@
-import lib from "./lib";
+import lib from './lib';
 
 const level = {
     width: 13,
@@ -7,9 +7,25 @@ const level = {
     brickHeight: 8,
     tileMap:[],
 
-    drawBricks: function() {
-        const xOffset = 8;
-        const yOffset = 8;
+    drawBrickShadows: function(game) {
+        const xOffset = game.playfieldOffsetX + game.shadowOffsetX;
+        const yOffset = game.playfieldOffsetY + game.shadowOffsetY;
+
+        for(let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                if (this.tileMap[x + (y * this.width)] > 0) {
+                    lib.drawSubImageRect(xOffset + x * this.brickWidth,
+                                         yOffset + y * this.brickHeight,
+                                         this.brickWidth, this.brickHeight, 40, 80);
+                }
+
+            }
+        }
+    },
+
+    drawBricks: function(game) {
+        const xOffset = game.playfieldOffsetX;
+        const yOffset = game.playfieldOffsetY;
 
         for(let y = 0; y < this.height; y++) {
             for(let x = 0; x < this.width; x++) {

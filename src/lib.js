@@ -38,6 +38,10 @@ const lib = {
         this.ctx.fillRect(0, 0, this.width, this.height);
     },
 
+    setAlpha(value) {
+        this.ctx.globalAlpha = value;
+    },
+
     collide(obj1, obj2) {
         return (obj1.x + obj1.width >= obj2.x &&
             obj1.y + obj1.height >= obj2.y &&

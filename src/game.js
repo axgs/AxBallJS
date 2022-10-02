@@ -31,6 +31,7 @@ function gameLoop() {
 
 function renderGame() {
     lib.cls('000');
+    level.drawBackground();
     level.drawBricks();
     level.drawBorder();
     drawSprites();

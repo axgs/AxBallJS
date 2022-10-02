@@ -25,6 +25,14 @@ const level = {
         }
     },
 
+    drawBackground: function() {
+        for(let y = 0; y < 15; y++) {
+            for(let x = 0; x < 13; x++) {
+                lib.drawSubImageRect(8 + x * 16, 8 + y * 16, 16, 16, 24, 48);
+            }
+        }
+    },
+
     drawBorder: function() {
         lib.drawSubImageRect(0, 0, 8, 8, 0, 48);
         lib.drawSubImageRect(216, 0, 8, 8, 16, 48);
@@ -33,7 +41,7 @@ const level = {
             lib.drawSubImageRect(x * 8, 0, 8, 8, 8, 48);
         }
 
-        for (let y = 1; y < 24; y++) {
+        for (let y = 1; y < 25; y++) {
             lib.drawSubImageRect(0, y * 8, 8, 8, 0, 56);
             lib.drawSubImageRect(216, y * 8, 8, 8, 16, 56);
         }

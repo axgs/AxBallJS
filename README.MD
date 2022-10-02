@@ -6,7 +6,7 @@ game native resolution is: 320 x 200 pixel <br>
 left/right cursor key to move the player <br>
 space to release the ball <br>
 <h1> Getting Started</h1>
-I use parcel to bundle the files and to run a local webserver during development
+ParcelJS will be used to bundle the files and to run a local webserver during development
 (NodeJS installation is required).
 <br>
 <code>npm install</code> to install dependencies.<br><br>
@@ -15,8 +15,5 @@ I use parcel to bundle the files and to run a local webserver during development
 In most cases it´s: <code>localhost:1234</code><br><br>
 `npm build` to bundle the project in the `dist` folder. <br>
 <br>
-I make my pixel graphics with `aseprite`.
-The levels will be created with `Tiled`.
-<br><br>
 cheers.<br>
 axgs

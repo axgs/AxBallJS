@@ -9,9 +9,10 @@ space to release the ball <br>
 I use parcel to bundle the files and to run a local webserver during development
 (NodeJS installation is required).
 <br>
-`npm install` to install dependencies.<br>
-`npm start` to start the local webserver.A message will apear on which port the webserver is listening.
-In most cases it´s: localhost:1234<br>
+<code>npm install</code> to install dependencies.<br><br>
+
+`npm start` to start the local webserver.A message will apear on which port the webserver is listening.<br>
+In most cases it´s: <code>localhost:1234</code><br><br>
 `npm build` to bundle the project in the `dist` folder. <br>
 <br>
 I make my pixel graphics with `aseprite`.

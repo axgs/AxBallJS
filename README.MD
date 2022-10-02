@@ -7,7 +7,7 @@ left/right cursor key to move the player <br>
 space to release the ball <br>
 <h1> Getting Started</h1>
 ParcelJS will be used to bundle the files and to run a local webserver during development.<br>
-(NodeJS installation is required).
+(NodeJS installation is required).<br>
 <br>
 <code>npm install</code> to install dependencies.<br><br>
 
@@ -15,5 +15,5 @@ ParcelJS will be used to bundle the files and to run a local webserver during de
 like <code>localhost:1234</code><br><br>
 `npm build` to bundle the project in the `dist` folder. <br>
 <br>
-cheers.<br>
+friendly greetings.<br>
 axgs

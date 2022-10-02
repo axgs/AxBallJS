@@ -7,7 +7,7 @@ const level = {
     brickHeight: 8,
     tileMap:[],
 
-    draw: function() {
+    drawBricks: function() {
         const xOffset = 8;
         const yOffset = 8;
 
@@ -22,6 +22,20 @@ const level = {
                         this.brickWidth, this.brickHeight, sourceX, sourceY);
                 }
             }
+        }
+    },
+
+    drawBorder: function() {
+        lib.drawSubImageRect(0, 0, 8, 8, 0, 48);
+        lib.drawSubImageRect(216, 0, 8, 8, 16, 48);
+
+        for (let x = 1; x < 27; x++) {
+            lib.drawSubImageRect(x * 8, 0, 8, 8, 8, 48);
+        }
+
+        for (let y = 1; y < 24; y++) {
+            lib.drawSubImageRect(0, y * 8, 8, 8, 0, 56);
+            lib.drawSubImageRect(216, y * 8, 8, 8, 16, 56);
         }
     },
 

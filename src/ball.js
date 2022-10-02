@@ -27,8 +27,8 @@ class Ball {
                 this.isOnPaddle = false;
                 this.dirX = -1;
                 this.dirY = 1;
-                this.speedX = 0.7;
-                this.speedY = 1.5;
+                this.speedX = 0.8;
+                this.speedY = 1.2;
             }
         }
         else {

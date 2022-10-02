@@ -30,8 +30,9 @@ function gameLoop() {
 }
 
 function renderGame() {
-    lib.cls('606');
-    level.draw();
+    lib.cls('000');
+    level.drawBricks();
+    level.drawBorder();
     drawSprites();
 }
 

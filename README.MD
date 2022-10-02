@@ -6,13 +6,13 @@ game native resolution is: 320 x 200 pixel <br>
 left/right cursor key to move the player <br>
 space to release the ball <br>
 <h1> Getting Started</h1>
-ParcelJS will be used to bundle the files and to run a local webserver during development
+ParcelJS will be used to bundle the files and to run a local webserver during development.<br>
 (NodeJS installation is required).
 <br>
 <code>npm install</code> to install dependencies.<br><br>
 
-`npm start` to start the local webserver.A message will apear on which port the webserver is listening.<br>
-In most cases it´s: <code>localhost:1234</code><br><br>
+`npm start` to start the local webserver. A message will apear on which port the webserver is listening.<br>
+like <code>localhost:1234</code><br><br>
 `npm build` to bundle the project in the `dist` folder. <br>
 <br>
 cheers.<br>

@@ -12,7 +12,7 @@ let game = {
     ball: null,
     shadowOffsetX: 5,
     shadowOffsetY: 5,
-    shadowAlphaValue: 0.7,
+    shadowAlphaValue: 0.5,
     playfieldOffsetX: 8,
     playfieldOffsetY: 8
 };
@@ -39,6 +39,7 @@ function renderGame() {
     level.drawBackground();
 
     lib.setAlpha(game.shadowAlphaValue);
+    level.drawBorderShadows(game);
     level.drawBrickShadows(game);
     drawSpriteShadows();
     lib.setAlpha(1.0);

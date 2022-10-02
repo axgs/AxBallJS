@@ -63,6 +63,16 @@ const level = {
         }
     },
 
+    drawBorderShadows: function(game) {
+        for (let x = 1; x < 27; x++) {
+            lib.drawSubImageRect(5 + x * 8, game.shadowOffsetY, 8, 8, 40, 80);
+        }
+
+        for (let y = 0; y < 25; y++) {
+            lib.drawSubImageRect(game.shadowOffsetX, y * 8, 8, 8, 40, 80);
+        }
+    },
+
     getBrickId: function(x, y) {
         let xm = Math.floor((x - 8) / this.brickWidth);
         let ym = Math.floor((y - 8) / this.brickHeight);

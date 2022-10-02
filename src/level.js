@@ -44,7 +44,8 @@ const level = {
     drawBackground: function() {
         for(let y = 0; y < 15; y++) {
             for(let x = 0; x < 13; x++) {
-                lib.drawSubImageRect(8 + x * 16, 8 + y * 16, 16, 16, 24, 48);
+                lib.drawSubImageRect(8 + x * 16, 8 + y * 16, 16, 16,
+                                    24 + (this.bgTile * 16), 48);
             }
         }
     },

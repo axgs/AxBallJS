@@ -21,7 +21,8 @@ function gameInit() {
     lib.init(320, 200, 'gameGfx');
     lib.addKeyEvents();
 
-    level.tileMap = [...levelData[game.level]];
+    level.tileMap = [...levelData[game.level][0].data];
+    level.bgTile = levelData[game.level][0].bgTile;
     game.ball = new Ball();
     player.init();
 

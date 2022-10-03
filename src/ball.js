@@ -18,7 +18,7 @@ class Ball {
         this.isOnPaddle = true;
     }
 
-    update(player) {
+    update(player, game) {
         if (this.isOnPaddle) {
             // ball is attached to player
             this.x = player.x + ((player.width - this.width) / 2);
@@ -60,21 +60,30 @@ class Ball {
                 hit = true;
             }
 
-            // todo: play some hit sound
             if (hit) {
+                lib.playSound(game.sfx[0]);
             }
 
             // border & player collision
+            hit = false;
+
             if (this.dirX < 0 && this.x <= 8) {
                 this.dirX = 1;
+                hit = true;
             } else if (this.dirX > 0 && this.x >= 216 - this.width) {
                 this.dirX = -1;
+                hit = true;
             } else if (this.dirY < 0 && this.y <= 8) {
                 this.dirY = 1;
+                hit = true;
             } else if (this.dirY > 0 && this.y > lib.height) {
                 this.lost();
             } else if (this.dirY > 0 && lib.collide(player, this)) {
                 this.playerCollision(player);
+            }
+
+            if (hit) {
+                lib.playSound(game.sfx[0]);
             }
         }
     }

@@ -3,11 +3,11 @@ import player from './player';
 import level from './level';
 import title from './title';
 
-// const hitSfxUrl = require('url:../assets/sfx/hit1.wav');
-const gameGfxUrl = require('url:../assets/gamegfx.png');
-
 import lib from './lib';
 import { levelData } from './level/levelData';
+
+const hitSfxUrl = require('url:../assets/sfx/hit1.ogg');
+const gameGfxUrl = require('url:../assets/gamegfx.png');
 
 const state = {
     game: 1,
@@ -18,6 +18,7 @@ const state = {
 
 let game = {
     gfx: null,                              // img element
+    sfx: [],
     level: 0,
     score: 112,
     balls: 0,
@@ -36,6 +37,7 @@ function gameInit() {
 
     // preload data
     game.gfx = lib.loadImage(gameGfxUrl);
+    lib.loadSound(hitSfxUrl, game.sfx);
 
     // init game
     level.tileMap = [...levelData[game.level][0].data];
@@ -78,7 +80,7 @@ function renderGame() {
 
 function updateGame() {
     player.update();
-    game.ball.update(player);
+    game.ball.update(player, game);
 }
 
 function drawSprites() {

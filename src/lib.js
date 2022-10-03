@@ -2,10 +2,12 @@ const lib = {
     ctx: null,                      // canvas drawing context
     width: 320,                     // game resolution
     height: 200,
-
+    audioContext: null,
+    audioEnabled: false,
     keyLeft: false,                 // key states
     keyRight: false,
     keyFire: false,
+    sfx: [],
 
     init(width, height) {
         let canvas = document.createElement('canvas');
@@ -18,6 +20,39 @@ const lib = {
         this.ctx = element.getContext("2d");
 
         this.addKeyEvents();
+        this.initAudio();
+    },
+
+    initAudio() {
+        try {
+            this.audioContext = new AudioContext();
+            this.audioEnabled = true;
+
+        }
+        catch(error) {
+            console.log(error);
+            this.audioEnabled = false;
+        }
+    },
+
+    loadSound(url, sfxArray) {
+        let request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.responseType = 'arraybuffer';
+
+        request.onload = () => {
+            this.audioContext.decodeAudioData(request.response, (buffer) => {
+                sfxArray.push(buffer);
+            });
+        }
+        request.send();
+    },
+
+    playSound(audioBuffer) {
+        let source =  this.audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(this.audioContext.destination);
+        source.start(0);
     },
 
     startGame() {
@@ -31,6 +66,11 @@ const lib = {
         let img = new Image();
         img.src = url;
         return img;
+    },
+
+    loadAudio(url) {
+        let audio = new Audio(url);
+        return audio;
     },
 
     drawSubImageRect(img, x, y, width, height, sourceX, sourceY) {

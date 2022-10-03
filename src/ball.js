@@ -28,7 +28,7 @@ class Ball {
             if (lib.keyFire) {
                 this.isOnPaddle = false;
                 this.dirX = -1;
-                this.dirY = 1;
+                this.dirY = -1;
                 this.speedX = 0.8;
                 this.speedY = 1.2;
             }
@@ -61,7 +61,7 @@ class Ball {
             }
 
             if (hit) {
-                lib.playSound(game.sfx[0]);
+                lib.playSound('brickhit1', -0.5);
             }
 
             // border & player collision
@@ -78,12 +78,14 @@ class Ball {
                 hit = true;
             } else if (this.dirY > 0 && this.y > lib.height) {
                 this.lost();
+                lib.playSound('lostball', -0.5);
             } else if (this.dirY > 0 && lib.collide(player, this)) {
                 this.playerCollision(player);
+                lib.playSound('paddlehit', -0.5);
             }
 
             if (hit) {
-                lib.playSound(game.sfx[0]);
+                lib.playSound('brickhit2', -0.5);
             }
         }
     }

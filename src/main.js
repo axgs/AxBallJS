@@ -6,8 +6,15 @@ import title from './title';
 import lib from './lib';
 import { levelData } from './level/levelData';
 
-const hitSfxUrl = require('url:../assets/sfx/hit1.ogg');
+// assets
 const gameGfxUrl = require('url:../assets/gamegfx.png');
+
+const sfxUrlList = [
+    {name:'brickhit1', url: require('url:../assets/sfx/hit1.ogg') },
+    {name:'brickhit2', url: require('url:../assets/sfx/hit2.ogg') },
+    {name:'paddlehit', url: require('url:../assets/sfx/paddlehit.ogg') },
+    {name:'lostball', url: require('url:../assets/sfx/ball_lost.ogg') },
+];
 
 const state = {
     game: 1,
@@ -18,7 +25,6 @@ const state = {
 
 let game = {
     gfx: null,                              // img element
-    sfx: [],
     level: 0,
     score: 112,
     balls: 0,
@@ -35,9 +41,7 @@ function gameInit() {
     lib.init(320, 200);
     lib.addKeyEvents();
 
-    // preload data
-    game.gfx = lib.loadImage(gameGfxUrl);
-    lib.loadSound(hitSfxUrl, game.sfx);
+    preload();
 
     // init game
     level.tileMap = [...levelData[game.level][0].data];
@@ -47,6 +51,14 @@ function gameInit() {
     player.init();
 
     window.requestAnimationFrame(gameLoop);
+}
+
+function preload() {
+    lib.loadImage(gameGfxUrl, 'gamegfx');
+
+    sfxUrlList.forEach( (sfxList) => {
+        lib.loadSound(sfxList.url, sfxList.name);
+    });
 }
 
 function gameLoop() {
@@ -74,7 +86,7 @@ function renderGame() {
     lib.setAlpha(1.0);
 
     level.drawBricks(game);
-    level.drawBorder(game);
+    level.drawBorder();
     drawSprites();
 }
 
@@ -84,15 +96,15 @@ function updateGame() {
 }
 
 function drawSprites() {
-    lib.drawSubImageRect(game.gfx, player.x, player.y, player.width, player.height, player.sourceX, player.sourceY);
-    lib.drawSubImageRect(game.gfx, game.ball.x, game.ball.y,game.ball.width, game.ball.height, game.ball.sourceX, game.ball.sourceY);
+    lib.drawSubImageRect('gamegfx', player.x, player.y, player.width, player.height, player.sourceX, player.sourceY);
+    lib.drawSubImageRect('gamegfx', game.ball.x, game.ball.y,game.ball.width, game.ball.height, game.ball.sourceX, game.ball.sourceY);
 }
 
 function drawSpriteShadows() {
-    lib.drawSubImageRect(game.gfx,game.ball.x + game.shadowOffsetX, game.ball.y + game.shadowOffsetY,
+    lib.drawSubImageRect('gamegfx',game.ball.x + game.shadowOffsetX, game.ball.y + game.shadowOffsetY,
             game.ball.width, game.ball.height, game.ball.shadowSourceX, game.ball.shadowSourceY);
 
-    lib.drawSubImageRect(game.gfx,player.x + game.shadowOffsetX, player.y + game.shadowOffsetY,
+    lib.drawSubImageRect('gamegfx',player.x + game.shadowOffsetX, player.y + game.shadowOffsetY,
                          player.width, player.height, player.shadowSourceX, player.shadowSourceY);
 }
 

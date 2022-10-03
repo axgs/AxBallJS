@@ -3,11 +3,13 @@ const lib = {
     width: 320,                     // game resolution
     height: 200,
     audioContext: null,
-    audioEnabled: false,
+    sfxGainNode: null,
+    isAudioEnabled: false,
     keyLeft: false,                 // key states
     keyRight: false,
     keyFire: false,
-    sfx: [],
+    sfx: [],                        // array to hold all loaded sounds
+    gfx: [],                        // array to hold all loaded graphics
 
     init(width, height) {
         let canvas = document.createElement('canvas');
@@ -26,55 +28,64 @@ const lib = {
     initAudio() {
         try {
             this.audioContext = new AudioContext();
-            this.audioEnabled = true;
+            this.sfxGainNode =  this.audioContext.createGain();
+            this.isAudioEnabled = true;
 
         }
         catch(error) {
-            console.log(error);
-            this.audioEnabled = false;
+            this.isAudioEnabled = false;
         }
     },
 
-    loadSound(url, sfxArray) {
-        let request = new XMLHttpRequest();
-        request.open('GET', url, true);
-        request.responseType = 'arraybuffer';
-
-        request.onload = () => {
-            this.audioContext.decodeAudioData(request.response, (buffer) => {
-                sfxArray.push(buffer);
-            });
+    loadSound(url, soundIdName) {
+        if(this.isAudioEnabled) {
+            let request = new XMLHttpRequest();
+            request.open('GET', url, true);
+            request.responseType = 'arraybuffer';
+            request.onload = () => {
+                this.audioContext.decodeAudioData(request.response, (buffer) => {
+                    this.sfx[soundIdName] = buffer;
+                });
+            }
+            request.send();
         }
-        request.send();
     },
 
-    playSound(audioBuffer) {
-        let source =  this.audioContext.createBufferSource();
-        source.buffer = audioBuffer;
-        source.connect(this.audioContext.destination);
-        source.start(0);
+    // gainValue = from -1.0 to 2.0
+    playSound(soundIdName, gainValue) {
+        if(this.isAudioEnabled) {
+            let source =  this.audioContext.createBufferSource();
+            source.buffer = lib.sfx[soundIdName];
+            source.connect(this.sfxGainNode);
+            source.connect(this.audioContext.destination);
+            this.sfxGainNode.connect(this.audioContext.destination);
+            this.setSfxGain(gainValue);
+            source.start(0);
+        }
     },
 
-    startGame() {
-        this.updateFunction();
-        this.renderFunction();
-        window.requestAnimationFrame(this.startGame);
+    setSfxGain(value) {
+        if (value < -1) {
+            value = -1;
+        } else if (value > 2) {
+            value = 2;
+        }
+
+        this.sfxGainNode.gain.value = value;
     },
 
-    loadImage(url) {
-        this.isImageLoading = true;
+    loadImage(url, imgIdName) {
         let img = new Image();
         img.src = url;
-        return img;
+        this.gfx[imgIdName] = img;
     },
 
     loadAudio(url) {
-        let audio = new Audio(url);
-        return audio;
+        return new Audio(url);
     },
 
-    drawSubImageRect(img, x, y, width, height, sourceX, sourceY) {
-        this.ctx.drawImage(img, sourceX, sourceY, width, height,
+    drawSubImageRect(imgNameId, x, y, width, height, sourceX, sourceY) {
+        this.ctx.drawImage(this.gfx[imgNameId], sourceX, sourceY, width, height,
                            Math.floor(x), Math.floor(y), width, height);
     },
 

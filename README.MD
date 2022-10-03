@@ -13,7 +13,7 @@ ParcelJS will be used to bundle the files and to run a local webserver during de
 
 `npm start` to start the local webserver. A message will apear on which port the webserver is listening.<br>
 like <code>localhost:1234</code><br><br>
-`npm build` to bundle the project in the `dist` folder. <br>
+`npm run build` to bundle the project in the `dist` folder. <br>
 <br>
 friendly greetings.<br>
 axgs

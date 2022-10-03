@@ -31,25 +31,20 @@ let game = {
 };
 
 function gameInit() {
-    lib.init(320, 200, 'gameGfx');
+    lib.init(320, 200);
     lib.addKeyEvents();
 
     // preload data
     game.gfx = lib.loadImage(gameGfxUrl);
-    lib.gfx = game.gfx;
 
-    // start game when all data is loaded
-    window.onload = function () {
+    // init game
+    level.tileMap = [...levelData[game.level][0].data];
+    level.bgTile = levelData[game.level][0].bgTile;
 
-        // init game
+    game.ball = new Ball();
+    player.init();
 
-        level.tileMap = [...levelData[game.level][0].data];
-        level.bgTile = levelData[game.level][0].bgTile;
-
-        game.ball = new Ball();
-        player.init();
-        window.requestAnimationFrame(gameLoop);
-    }
+    window.requestAnimationFrame(gameLoop);
 }
 
 function gameLoop() {
@@ -68,7 +63,7 @@ function gameLoop() {
 
 function renderGame() {
     lib.cls('000');
-    level.drawBackground();
+    level.drawBackground(game);
 
     lib.setAlpha(game.shadowAlphaValue);
     level.drawBorderShadows(game);
@@ -77,7 +72,7 @@ function renderGame() {
     lib.setAlpha(1.0);
 
     level.drawBricks(game);
-    level.drawBorder();
+    level.drawBorder(game);
     drawSprites();
 }
 
@@ -87,16 +82,16 @@ function updateGame() {
 }
 
 function drawSprites() {
-    lib.drawSubImageRect(player.x, player.y, player.width, player.height, player.sourceX, player.sourceY);
-    lib.drawSubImageRect(game.ball.x, game.ball.y,game.ball.width, game.ball.height, game.ball.sourceX, game.ball.sourceY);
+    lib.drawSubImageRect(game.gfx, player.x, player.y, player.width, player.height, player.sourceX, player.sourceY);
+    lib.drawSubImageRect(game.gfx, game.ball.x, game.ball.y,game.ball.width, game.ball.height, game.ball.sourceX, game.ball.sourceY);
 }
 
 function drawSpriteShadows() {
-    lib.drawSubImageRect(game.ball.x + game.shadowOffsetX, game.ball.y + game.shadowOffsetY,
-            game.ball.width, game.ball.height, 32, 80);
+    lib.drawSubImageRect(game.gfx,game.ball.x + game.shadowOffsetX, game.ball.y + game.shadowOffsetY,
+            game.ball.width, game.ball.height, game.ball.shadowSourceX, game.ball.shadowSourceY);
 
-    lib.drawSubImageRect(player.x + game.shadowOffsetX, player.y + game.shadowOffsetY,
-                         player.width, player.height, 0,80);
+    lib.drawSubImageRect(game.gfx,player.x + game.shadowOffsetX, player.y + game.shadowOffsetY,
+                         player.width, player.height, player.shadowSourceX, player.shadowSourceY);
 }
 
 gameInit();

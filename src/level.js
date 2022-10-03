@@ -15,7 +15,7 @@ const level = {
         for(let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 if (this.tileMap[x + (y * this.width)] > 0) {
-                    lib.drawSubImageRect(xOffset + x * this.brickWidth,
+                    lib.drawSubImageRect(game.gfx,xOffset + x * this.brickWidth,
                                          yOffset + y * this.brickHeight,
                                          this.brickWidth, this.brickHeight, 40, 80);
                 }
@@ -35,43 +35,43 @@ const level = {
                 if (tileId > 0) {
                     let sourceX = (tileId - 1) * 16;
                     let sourceY = 0;
-                    lib.drawSubImageRect(xOffset + x * this.brickWidth, yOffset + y * this.brickHeight,
+                    lib.drawSubImageRect(game.gfx,xOffset + x * this.brickWidth, yOffset + y * this.brickHeight,
                         this.brickWidth, this.brickHeight, sourceX, sourceY);
                 }
             }
         }
     },
 
-    drawBackground: function() {
+    drawBackground: function(game) {
         for(let y = 0; y < 15; y++) {
             for(let x = 0; x < 13; x++) {
-                lib.drawSubImageRect(8 + x * 16, 8 + y * 16, 16, 16,
+                lib.drawSubImageRect(game.gfx,8 + x * 16, 8 + y * 16, 16, 16,
                                     24 + (this.bgTile * 16), 48);
             }
         }
     },
 
-    drawBorder: function() {
-        lib.drawSubImageRect(0, 0, 8, 8, 0, 48);
-        lib.drawSubImageRect(216, 0, 8, 8, 16, 48);
+    drawBorder: function(game) {
+        lib.drawSubImageRect(game.gfx,0, 0, 8, 8, 0, 48);
+        lib.drawSubImageRect(game.gfx,216, 0, 8, 8, 16, 48);
 
         for (let x = 1; x < 27; x++) {
-            lib.drawSubImageRect(x * 8, 0, 8, 8, 8, 48);
+            lib.drawSubImageRect(game.gfx,x * 8, 0, 8, 8, 8, 48);
         }
 
         for (let y = 1; y < 25; y++) {
-            lib.drawSubImageRect(0, y * 8, 8, 8, 0, 56);
-            lib.drawSubImageRect(216, y * 8, 8, 8, 16, 56);
+            lib.drawSubImageRect(game.gfx,0, y * 8, 8, 8, 0, 56);
+            lib.drawSubImageRect(game.gfx,216, y * 8, 8, 8, 16, 56);
         }
     },
 
     drawBorderShadows: function(game) {
         for (let x = 1; x < 27; x++) {
-            lib.drawSubImageRect(5 + x * 8, game.shadowOffsetY, 8, 8, 40, 80);
+            lib.drawSubImageRect(game.gfx,5 + x * 8, game.shadowOffsetY, 8, 8, 40, 80);
         }
 
         for (let y = 0; y < 25; y++) {
-            lib.drawSubImageRect(game.shadowOffsetX, y * 8, 8, 8, 40, 80);
+            lib.drawSubImageRect(game.gfx, game.shadowOffsetX, y * 8, 8, 8, 40, 80);
         }
     },
 

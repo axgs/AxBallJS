@@ -7,6 +7,8 @@ class Ball {
         this.y = 0;
         this.sourceX = 32;
         this.sourceY = 72;
+        this.shadowSourceX = 32;
+        this.shadowSourceY = 80;
         this.width = 6;
         this.height = 4;
         this.dirX = 0;
@@ -90,7 +92,6 @@ class Ball {
     lost() {
         this.isOnPaddle = true;
     }
-
 }
 
 export default Ball;

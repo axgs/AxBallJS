@@ -7,10 +7,12 @@ const player = {
     height: 8,
     sourceX: 0,
     sourceY: 72,
+    shadowSourceX: 0,
+    shadowSourceY: 80,
     speed: 0,
 
     init() {
-        this.x = (lib.width - this.width) / 2;
+        this.x = (240 - this.width) / 2;
         this.y = lib.height - this.height * 2;
         this.speed = 2;
     },

@@ -1,6 +1,5 @@
 const lib = {
     ctx: null,                      // canvas drawing context
-    gfx: null,                      // sprite-sheet with all game graphics
     width: 320,                     // game resolution
     height: 200,
 
@@ -8,7 +7,7 @@ const lib = {
     keyRight: false,
     keyFire: false,
 
-    init(width, height, gfxImgId) {
+    init(width, height) {
         let canvas = document.createElement('canvas');
         canvas.id = 'gameCanvas';
         canvas.width = width;
@@ -18,9 +17,7 @@ const lib = {
         const element = document.getElementById('gameCanvas');
         this.ctx = element.getContext("2d");
 
-        this.gfx = document.getElementById(gfxImgId);
         this.addKeyEvents();
-        this.isImageLoading = false;
     },
 
     startGame() {
@@ -36,8 +33,8 @@ const lib = {
         return img;
     },
 
-    drawSubImageRect(x, y, width, height, sourceX, sourceY) {
-        this.ctx.drawImage(lib.gfx, sourceX, sourceY, width, height,
+    drawSubImageRect(img, x, y, width, height, sourceX, sourceY) {
+        this.ctx.drawImage(img, sourceX, sourceY, width, height,
                            Math.floor(x), Math.floor(y), width, height);
     },
 

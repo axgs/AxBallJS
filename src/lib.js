@@ -20,12 +20,20 @@ const lib = {
 
         this.gfx = document.getElementById(gfxImgId);
         this.addKeyEvents();
+        this.isImageLoading = false;
     },
 
     startGame() {
         this.updateFunction();
         this.renderFunction();
         window.requestAnimationFrame(this.startGame);
+    },
+
+    loadImage(url) {
+        this.isImageLoading = true;
+        let img = new Image();
+        img.src = url;
+        return img;
     },
 
     drawSubImageRect(x, y, width, height, sourceX, sourceY) {

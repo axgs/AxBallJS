@@ -1,11 +1,23 @@
 import Ball from './ball';
 import player from './player';
 import level from './level';
+import title from './title';
+
+// const hitSfxUrl = require('url:../assets/sfx/hit1.wav');
+const gameGfxUrl = require('url:../assets/gamegfx.png');
 
 import lib from './lib';
 import { levelData } from './level/levelData';
 
+const state = {
+    game: 1,
+    gameInit: 2,
+    title: 3,
+    gameover: 4
+};
+
 let game = {
+    gfx: null,                              // img element
     level: 0,
     score: 112,
     balls: 0,
@@ -14,24 +26,43 @@ let game = {
     shadowOffsetY: 5,
     shadowAlphaValue: 0.5,
     playfieldOffsetX: 8,
-    playfieldOffsetY: 8
+    playfieldOffsetY: 8,
+    currentState: state.game
 };
 
 function gameInit() {
     lib.init(320, 200, 'gameGfx');
     lib.addKeyEvents();
 
-    level.tileMap = [...levelData[game.level][0].data];
-    level.bgTile = levelData[game.level][0].bgTile;
-    game.ball = new Ball();
-    player.init();
+    // preload data
+    game.gfx = lib.loadImage(gameGfxUrl);
+    lib.gfx = game.gfx;
 
-    window.requestAnimationFrame(gameLoop);
+    // start game when all data is loaded
+    window.onload = function () {
+
+        // init game
+
+        level.tileMap = [...levelData[game.level][0].data];
+        level.bgTile = levelData[game.level][0].bgTile;
+
+        game.ball = new Ball();
+        player.init();
+        window.requestAnimationFrame(gameLoop);
+    }
 }
 
 function gameLoop() {
-    updateGame();
-    renderGame();
+    switch(game.currentState) {
+        case state.game:
+            updateGame();
+            renderGame();
+            break;
+
+        case state.title:
+            title.update();
+            title.render();
+    }
     window.requestAnimationFrame(gameLoop);
 }
 
@@ -66,7 +97,6 @@ function drawSpriteShadows() {
 
     lib.drawSubImageRect(player.x + game.shadowOffsetX, player.y + game.shadowOffsetY,
                          player.width, player.height, 0,80);
-
 }
 
 gameInit();

@@ -24,7 +24,6 @@ const state = {
 };
 
 let game = {
-    gfx: null,                              // img element
     level: 0,
     score: 112,
     balls: 0,

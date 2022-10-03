@@ -80,10 +80,6 @@ const lib = {
         this.gfx[imgIdName] = img;
     },
 
-    loadAudio(url) {
-        return new Audio(url);
-    },
-
     drawSubImageRect(imgNameId, x, y, width, height, sourceX, sourceY) {
         this.ctx.drawImage(this.gfx[imgNameId], sourceX, sourceY, width, height,
                            Math.floor(x), Math.floor(y), width, height);

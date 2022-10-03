@@ -16,7 +16,7 @@ const state = {
     gameover: 4
 };
 
-let game = {
+let main = {
     gfx: null,                              // img element
     level: 0,
     score: 112,
@@ -35,25 +35,25 @@ function gameInit() {
     lib.addKeyEvents();
 
     // preload data
-    game.gfx = lib.loadImage(gameGfxUrl);
-    lib.gfx = game.gfx;
+    main.gfx = lib.loadImage(gameGfxUrl);
+    lib.gfx = main.gfx;
 
     // start game when all data is loaded
     window.onload = function () {
 
         // init game
 
-        level.tileMap = [...levelData[game.level][0].data];
-        level.bgTile = levelData[game.level][0].bgTile;
+        level.tileMap = [...levelData[main.level][0].data];
+        level.bgTile = levelData[main.level][0].bgTile;
 
-        game.ball = new Ball();
+        main.ball = new Ball();
         player.init();
         window.requestAnimationFrame(gameLoop);
     }
 }
 
 function gameLoop() {
-    switch(game.currentState) {
+    switch(main.currentState) {
         case state.game:
             updateGame();
             renderGame();
@@ -70,32 +70,32 @@ function renderGame() {
     lib.cls('000');
     level.drawBackground();
 
-    lib.setAlpha(game.shadowAlphaValue);
-    level.drawBorderShadows(game);
-    level.drawBrickShadows(game);
+    lib.setAlpha(main.shadowAlphaValue);
+    level.drawBorderShadows(main);
+    level.drawBrickShadows(main);
     drawSpriteShadows();
     lib.setAlpha(1.0);
 
-    level.drawBricks(game);
+    level.drawBricks(main);
     level.drawBorder();
     drawSprites();
 }
 
 function updateGame() {
     player.update();
-    game.ball.update(player);
+    main.ball.update(player);
 }
 
 function drawSprites() {
     lib.drawSubImageRect(player.x, player.y, player.width, player.height, player.sourceX, player.sourceY);
-    lib.drawSubImageRect(game.ball.x, game.ball.y,game.ball.width, game.ball.height, game.ball.sourceX, game.ball.sourceY);
+    lib.drawSubImageRect(main.ball.x, main.ball.y,main.ball.width, main.ball.height, main.ball.sourceX, main.ball.sourceY);
 }
 
 function drawSpriteShadows() {
-    lib.drawSubImageRect(game.ball.x + game.shadowOffsetX, game.ball.y + game.shadowOffsetY,
-                         game.ball.width, game.ball.height, 32, 80);
+    lib.drawSubImageRect(main.ball.x + main.shadowOffsetX, main.ball.y + main.shadowOffsetY,
+                         main.ball.width, main.ball.height, 32, 80);
 
-    lib.drawSubImageRect(player.x + game.shadowOffsetX, player.y + game.shadowOffsetY,
+    lib.drawSubImageRect(player.x + main.shadowOffsetX, player.y + main.shadowOffsetY,
                          player.width, player.height, 0,80);
 }
 

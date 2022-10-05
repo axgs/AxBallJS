@@ -7,6 +7,23 @@ const level = {
     brickHeight: 8,
     tileMap:[],
     bgTile: 0,
+    brickCount: 0,
+    backgroundCanvas: null,
+    backgroundCtx: null,
+
+    init: function(img) {
+        this.backgroundCanvas = lib.createCanvas('backgroundCanvas', 320, 200);
+        this.backgroundCtx = this.backgroundCanvas.getContext('2d');
+        this.createBackground(img);
+    },
+
+    createBackground: function(img) {
+        for(let y = 0; y < 15; y++) {
+            for(let x = 0; x < 13; x++) {
+                this.backgroundCtx.drawImage(img, 24, 48, 16, 16, x * 16,y * 16, 16, 16);
+            }
+        }
+    },
 
     drawBrickShadows: function(game) {
         const xOffset = game.playfieldOffsetX + game.shadowOffsetX;
@@ -27,6 +44,7 @@ const level = {
     drawBricks: function(game) {
         const xOffset = game.playfieldOffsetX;
         const yOffset = game.playfieldOffsetY;
+        this.brickCount = 0;
 
         for(let y = 0; y < this.height; y++) {
             for(let x = 0; x < this.width; x++) {
@@ -37,16 +55,8 @@ const level = {
                     let sourceY = 0;
                     lib.drawSubImageRect('gamegfx',xOffset + x * this.brickWidth, yOffset + y * this.brickHeight,
                         this.brickWidth, this.brickHeight, sourceX, sourceY);
+                    this.brickCount++;
                 }
-            }
-        }
-    },
-
-    drawBackground: function() {
-        for(let y = 0; y < 15; y++) {
-            for(let x = 0; x < 13; x++) {
-                lib.drawSubImageRect('gamegfx',8 + x * 16, 8 + y * 16, 16, 16,
-                                    24 + (this.bgTile * 16), 48);
             }
         }
     },

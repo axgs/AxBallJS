@@ -11,13 +11,13 @@ const player = {
     shadowSourceY: 80,
     speed: 0,
 
-    init() {
+    init: function() {
         this.x = (240 - this.width) / 2;
         this.y = lib.height - this.height * 2;
         this.speed = 2;
     },
 
-    update() {
+    update: function() {
         if (lib.keyLeft) {
             this.x -= this.speed;
             if (this.x <= 8) this.x = 8;

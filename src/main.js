@@ -38,18 +38,21 @@ let game = {
 
 function gameInit() {
     lib.init(320, 200);
-    lib.addKeyEvents();
-
     preload();
 
-    // init game
-    level.tileMap = [...levelData[game.level][0].data];
-    level.bgTile = levelData[game.level][0].bgTile;
+    window.onload = () => {
+        // init game
+        level.tileMap = [...levelData[game.level][0].data];
+        level.bgTile = levelData[game.level][0].bgTile;
 
-    game.ball = new Ball();
-    player.init();
+        level.init(lib.gfx['gamegfx']);
+        game.ball = new Ball();
+        player.init();
 
-    window.requestAnimationFrame(gameLoop);
+        lib.ctx.drawImage(level.backgroundCanvas, 0, 0);
+        lib.addKeyEvents();
+        window.requestAnimationFrame(gameLoop);
+    }
 }
 
 function preload() {
@@ -74,9 +77,15 @@ function gameLoop() {
     window.requestAnimationFrame(gameLoop);
 }
 
+function updateGame() {
+    player.update();
+    game.ball.update(player, game);
+}
+
 function renderGame() {
     lib.cls('000');
-    level.drawBackground(game);
+
+    lib.ctx.drawImage(level.backgroundCanvas, game.playfieldOffsetX, game.playfieldOffsetX, 320,200);
 
     lib.setAlpha(game.shadowAlphaValue);
     level.drawBorderShadows(game);
@@ -86,12 +95,9 @@ function renderGame() {
 
     level.drawBricks(game);
     level.drawBorder();
-    drawSprites();
-}
 
-function updateGame() {
-    player.update();
-    game.ball.update(player, game);
+    drawSprites();
+    drawNumberFont(level.brickCount, 232, 8);
 }
 
 function drawSprites() {
@@ -105,6 +111,14 @@ function drawSpriteShadows() {
 
     lib.drawSubImageRect('gamegfx',player.x + game.shadowOffsetX, player.y + game.shadowOffsetY,
                          player.width, player.height, player.shadowSourceX, player.shadowSourceY);
+}
+
+function drawNumberFont(value, x, y) {
+    const s = value.toString();
+    for (let i = 0; i < s.length; i++) {
+        const code = s.charCodeAt(i) - 48;
+        lib.drawSubImageRect('gamegfx', x + i * 7, y, 6,7, code * 8, 120);
+    }
 }
 
 gameInit();

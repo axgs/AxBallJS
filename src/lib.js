@@ -11,21 +11,17 @@ const lib = {
     sfx: [],                        // array to hold all loaded sounds
     gfx: [],                        // array to hold all loaded graphics
 
-    init(width, height) {
-        let canvas = document.createElement('canvas');
-        canvas.id = 'gameCanvas';
-        canvas.width = width;
-        canvas.height = height;
+    init: function(width, height) {
+        const canvas = this.createCanvas('gameCanvas', width, height);
         document.body.appendChild(canvas);
-
-        const element = document.getElementById('gameCanvas');
-        this.ctx = element.getContext("2d");
+        this.ctx = canvas.getContext("2d");
+        this.ctx.imageSmoothingEnabled = false;
 
         this.addKeyEvents();
         this.initAudio();
     },
 
-    initAudio() {
+    initAudio: function() {
         try {
             this.audioContext = new AudioContext();
             this.sfxGainNode =  this.audioContext.createGain();
@@ -37,7 +33,7 @@ const lib = {
         }
     },
 
-    loadSound(url, soundIdName) {
+    loadSound: function(url, soundIdName) {
         if(this.isAudioEnabled) {
             let request = new XMLHttpRequest();
             request.open('GET', url, true);
@@ -52,7 +48,7 @@ const lib = {
     },
 
     // gainValue = from -1.0 to 2.0
-    playSound(soundIdName, gainValue) {
+    playSound: function(soundIdName, gainValue) {
         if(this.isAudioEnabled) {
             let source =  this.audioContext.createBufferSource();
             source.buffer = lib.sfx[soundIdName];
@@ -64,7 +60,7 @@ const lib = {
         }
     },
 
-    setSfxGain(value) {
+    setSfxGain: function(value) {
         if (value < -1) {
             value = -1;
         } else if (value > 2) {
@@ -74,34 +70,45 @@ const lib = {
         this.sfxGainNode.gain.value = value;
     },
 
-    loadImage(url, imgIdName) {
-        let img = new Image();
-        img.src = url;
-        this.gfx[imgIdName] = img;
+    createCanvas: function(canvasId, width, height) {
+        let canvas = document.createElement('canvas');
+        canvas.id = canvasId;
+        canvas.width = width;
+        canvas.height = height;
+        return canvas;
     },
 
-    drawSubImageRect(imgNameId, x, y, width, height, sourceX, sourceY) {
+    loadImage: function(url, imgIdName) {
+        let img = new Image();
+        img.id = imgIdName;
+        img.src = url;
+        img.hidden = true;
+        this.gfx[imgIdName] = img;
+        document.body.appendChild(img);
+    },
+
+    drawSubImageRect: function(imgNameId, x, y, width, height, sourceX, sourceY) {
         this.ctx.drawImage(this.gfx[imgNameId], sourceX, sourceY, width, height,
                            Math.floor(x), Math.floor(y), width, height);
     },
 
-    cls(hexColor) {
+    cls: function(hexColor) {
         this.ctx.fillStyle = '#' + hexColor;
         this.ctx.fillRect(0, 0, this.width, this.height);
     },
 
-    setAlpha(value) {
+    setAlpha: function(value) {
         this.ctx.globalAlpha = value;
     },
 
-    collide(obj1, obj2) {
+    collide: function(obj1, obj2) {
         return (obj1.x + obj1.width >= obj2.x &&
             obj1.y + obj1.height >= obj2.y &&
             obj1.x <= obj2.x + obj2.width &&
             obj1.y <= obj2.y + obj2.height);
     },
 
-    addKeyEvents() {
+    addKeyEvents: function() {
         document.addEventListener("keydown", (event) => {
             switch(event.code) {
                 case 'ArrowLeft':

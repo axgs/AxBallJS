@@ -1,6 +1,6 @@
 import lib from './lib';
 
-const title = {
+let title = {
     update: function() {
     },
 

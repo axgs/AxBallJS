@@ -1,5 +1,6 @@
 import lib from './lib';
 import level from './level';
+import gameStartMessage from './inGameStartMessage';
 
 class Ball {
     constructor() {
@@ -102,6 +103,7 @@ class Ball {
 
     lost() {
         this.isOnPaddle = true;
+        gameStartMessage.init();
     }
 }
 

@@ -2,6 +2,7 @@ import Ball from './ball';
 import player from './player';
 import level from './level';
 import title from './title';
+import gameStartMessage from './inGameStartMessage';
 
 import lib from './lib';
 import { levelData } from './level/levelData';
@@ -51,6 +52,8 @@ function gameInit() {
 
         lib.ctx.drawImage(level.backgroundCanvas, 0, 0);
         lib.addKeyEvents();
+        gameStartMessage.init();
+
         window.requestAnimationFrame(gameLoop);
     }
 }
@@ -80,6 +83,7 @@ function gameLoop() {
 function updateGame() {
     player.update();
     game.ball.update(player, game);
+    gameStartMessage.update();
 }
 
 function renderGame() {
@@ -97,6 +101,8 @@ function renderGame() {
     level.drawBorder();
 
     drawSprites();
+
+    gameStartMessage.draw();
     drawNumberFont(level.brickCount, 232, 8);
 }
 

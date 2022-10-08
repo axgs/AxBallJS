@@ -1,6 +1,6 @@
 import lib from './lib';
 
-const level = {
+let level = {
     width: 13,
     height: 21,
     brickWidth: 16,

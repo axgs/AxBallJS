@@ -1,6 +1,6 @@
 import lib from './lib';
 
-const player = {
+let player = {
     x: 0,
     y: 0,
     width: 32,
